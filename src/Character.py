@@ -1,3 +1,6 @@
+levels = {1:0, 2:300, 3:600, 4:1200, 5:2400, 6:4800,
+          7:9600, 8:19200, 9:38400, 10:76800}
+
 class Character:
     def __init__(self, name):
         self.name = name
@@ -25,13 +28,42 @@ class Character:
             self.curr_hp += n
 
     def goingToLevelUp(self, n):
-        if(self.xp + n > 1000*self.level):
+        if(self.level == 10):
+            return False
+
+        next_level_xp = levels[self.level + 1]
+        tmp = n
+        lvls_gained = 0
+        while((tmp + self.xp) - next_level_xp >= 0):
+            tmp -= next_level_xp
+            if(self.level + lvls_gained >= 10):
+                break
+            else:
+                lvls_gained += 1
+                next_level_xp = levels[self.level + lvls_gained + 1]
+
+        if(lvls_gained > 0):
+            self.level += lvls_gained
             return True
         else:
             return False
 
     def addXP(self, n):
-        if(self.goingToLevelUp(self, n)):
-            self.level += 1
-        else:
-            self.xp += n
+        self.goingToLevelUp(n)
+        self.xp += n
+
+if __name__ == "__main__":
+    tim = Character("time")
+    tim.addXP(50)
+    print('Tims XP = ', tim.getXP())
+    print('Adding 250 xp')
+    tim.addXP(250)
+    print('Tims XP = ', tim.getXP())
+    print('Adding 800 xp')
+    tim.addXP(800)
+    print('Tims XP = ', tim.getXP())
+    print('Adding 100 xp')
+    tim.addXP(100)
+    print('Tims XP = ', tim.getXP())
+    print('Tim is now level: ', tim.getLevel())
+
