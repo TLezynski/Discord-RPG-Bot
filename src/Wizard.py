@@ -1,4 +1,5 @@
-import Character
+from src import Character
+
 
 class Wizard(Character):
 
