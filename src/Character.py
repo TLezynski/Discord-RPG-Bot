@@ -9,6 +9,9 @@ class Character:
         self.max_hp = 0
         self.curr_hp = 0
 
+        self.max_damage = 0
+        self.min_damage = 0
+
     def getName(self):
         # Getter for the name
         return self.name
@@ -83,6 +86,22 @@ class Character:
             self.curr_hp = self.max_hp
         else:
             self.curr_hp += n
+
+    def getMaxDamage(self):
+        # Gets the max damage
+        return self.max_damage
+
+    def getMinDamage(self):
+        # Gets the min damage
+        return self.min_damage
+
+    def setMaxDamae(self, n):
+        # Sets the max damage
+        self.max_damage = n
+
+    def setMinDamage(self, n):
+        # Sets the min damage
+        self.min_damage = n
 
 if __name__ == "__main__":
     tim = Character("Tim")
