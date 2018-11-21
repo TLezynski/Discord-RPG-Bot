@@ -58,14 +58,14 @@ class Character:
 
         # if we've gained levels, add the levels we've gained
         if(lvls_gained > 0):
-            self.level += lvls_gained
-            return True
+            return True, lvls_gained
         else:
-            return False
+            return False, lvls_gained
 
     def addXP(self, n):
         # Add XP and level up if needed
-        self.goingToLevelUp(n)
+        lvls_gained = self.goingToLevelUp(n)[1]
+        self.level += lvls_gained
         self.xp += n
 
     def setHP(self, n):
