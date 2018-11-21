@@ -1,3 +1,5 @@
+import random
+
 levels = {1:0, 2:300, 3:600, 4:1200, 5:2400, 6:4800,
           7:9600, 8:19200, 9:38400, 10:76800}
 
@@ -11,6 +13,10 @@ class Character:
 
         self.max_damage = 0
         self.min_damage = 0
+
+        self.min_heal = 0
+        self.max_heal = 0
+
 
     def getName(self):
         # Getter for the name
@@ -102,6 +108,36 @@ class Character:
     def setMinDamage(self, n):
         # Sets the min damage
         self.min_damage = n
+
+    def dealDamage(self):
+        # Randomize between maximum and minimum damage and return that value
+        return random.randint(self.min_damage, self.max_damage)
+
+
+    def getMaxHeal(self):
+        # Gets the max heal
+        return self.max_damage
+
+    def getMinHeal(self):
+        # Gets the min heal
+        return self.min_damage
+
+    def setMaxHeal(self, n):
+        # Sets the max heal
+        self.max_damage = n
+
+    def setMinHeal(self, n):
+        # Sets the min heal
+        self.min_damage = n
+
+    def healAlly(self):
+        # Randomize between maximum and minimum damage and return that value
+        return random.randint(self.min_heal, self.max_heal)
+
+
+    def rest(self):
+        # Rest and regain all hitpoints
+        self.curr_hp = self.max_hp
 
 if __name__ == "__main__":
     tim = Character("Tim")
