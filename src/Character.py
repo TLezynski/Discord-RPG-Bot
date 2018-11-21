@@ -22,6 +22,10 @@ class Character:
         # Getter for the name
         return self.name
 
+    def setName(self, newName):
+        # Setter for the name
+        self.name = newName
+
     def getLevel(self):
         # Getter for the level
         return self.level

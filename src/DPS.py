@@ -1,7 +1,7 @@
 from src.Character import Character
 
 
-class Wizard(Character):
+class DPS(Character):
 
     def __init__(self, name):
         Character.__init__(self, name)
