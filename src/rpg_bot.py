@@ -2,11 +2,16 @@
 import discord
 import sys
 import random
+from src.Healer import Healer
+from src.DPS import DPS
+from src.Tank import Tank
+from src.CharacterDB import CharacterDB
 from discord.ext import commands
 from discord.ext.commands import Bot
 
 BOT_PREFIX = ("!")
 TOKEN = sys.argv[1]
+characterDB = CharacterDB()
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
 
@@ -19,21 +24,61 @@ async def hello(context):
              brief="Create a new character",
              pass_context=True,
              description="Will assign your account a new character. Won't do anything if you already have a character.",
-             aliases = ["newChar"])
+             aliases = ["newChar", "newcharacter", "newchar"])
 async def newCharacter(context):
+    # Break off thee command text from the message, make sure it's valid
     lst = context.message.content.split()
     lst = lst[1:]
     if(len(lst) == 0):
-        return await bot.say("`!newCharacter <name>`")
+        await bot.say("`!newCharacter <name>, <Healer, Tank, DPS>`")
 
-    name = ""
+    # Turn the list back into a string to split on the correct spot
+    string = ""
     for i in lst:
-        name += i
+        string += i
 
+    nameAndRole = string.split(",")
+
+    # Error check the list to make sure it doesn't have a comma
+    if(len(nameAndRole) != 2):
+        await bot.say("`!newCharacter <name>, <Healer, Tank, DPS>`")
+
+    name = nameAndRole[0]
+    role = nameAndRole[1].lower()
+
+    # Error check the name to make sure it's not super long
     if(len(name) > 16):
-        return await bot.say("`Your character's name must not exceed 16 characters`")
+        await bot.say("`Your character's name must not exceed 16 characters`")
+
+    # Error check the name to make sure it's only characters
     elif(not name.isalpha()):
-        return await bot.say("`Your character's name must contain only letters`")
+        await bot.say("`Your character's name must contain only letters`")
+
+    # On valid input, make a character based on their role
+    else:
+        if(characterDB.isInDB(name)):
+            return await(bot.say("`There already exists a character with that name. Please choose another`"))
+
+        if(role == "dps"):
+            # Make a DPS character
+            char = DPS(name)
+            characterDB.addToDB(char)
+            await bot.say("`" + name + " created successfully, Role: DPS`")
+
+        elif(role == "healer"):
+            # Make a healer character
+            char = Healer(name)
+            characterDB.addToDB(char)
+            await bot.say("`" + name + " created successfully, Role: Healer`")
+
+        elif (role == "tank"):
+            # Make a tank character
+            char = Tank(name)
+            characterDB.addToDB(char)
+            await bot.say("`" + name + " created successfully, Role: Tank`")
+
+        else:
+            await bot.say("`" + role + " is not an acceptable role. Please choose DPS, Healer, or Tank.`")
 
 
 @bot.event
