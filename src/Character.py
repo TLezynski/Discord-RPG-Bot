@@ -50,10 +50,10 @@ class Character:
         # the xp required to level up, subtract the next level's xp, and add a level gained
         while((tmp + self.xp) >= next_level_xp):
             tmp -= next_level_xp
+            lvls_gained += 1
             if(self.level + lvls_gained >= 10):
                 break
             else:
-                lvls_gained += 1
                 next_level_xp = levels[self.level + lvls_gained + 1]
 
         # if we've gained levels, add the levels we've gained
@@ -85,17 +85,27 @@ class Character:
             self.curr_hp += n
 
 if __name__ == "__main__":
-    tim = Character("time")
+    tim = Character("Tim")
     tim.addXP(50)
     print('Tims XP = ', tim.getXP())
+    print('Tim is now level: ', tim.getLevel())
+
     print('Adding 250 xp')
     tim.addXP(250)
     print('Tims XP = ', tim.getXP())
+    print('Tim is now level: ', tim.getLevel())
+
     print('Adding 800 xp')
     tim.addXP(800)
     print('Tims XP = ', tim.getXP())
+    print('Tim is now level: ', tim.getLevel())
+
     print('Adding 100 xp')
     tim.addXP(100)
     print('Tims XP = ', tim.getXP())
     print('Tim is now level: ', tim.getLevel())
 
+    print('Adding 1,000,000 xp')
+    tim.addXP(1000000)
+    print('Tims XP = ', tim.getXP())
+    print('Tim is now level: ', tim.getLevel())
