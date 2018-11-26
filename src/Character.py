@@ -105,7 +105,7 @@ class Character:
         # Gets the min damage
         return self.min_damage
 
-    def setMaxDamae(self, n):
+    def setMaxDamage(self, n):
         # Sets the max damage
         self.max_damage = n
 
