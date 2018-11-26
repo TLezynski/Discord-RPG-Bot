@@ -149,7 +149,15 @@ class Character:
         self.curr_hp = self.max_hp
 
     def toString(self):
-        return self.name + " : " + self.role
+        healerLine = ""
+        if(self.role.lower() == "healer"):
+            healerLine = "\tHealing: " + str(self.min_heal) + " - " + str(self.max_heal) + "\n"
+
+        return self.name + ", Level " + str(self.level) + " " + self.role + "\n" + \
+            "\tHitpoints " + " : " + str(self.curr_hp) + " / " + str(self.max_hp) + "\n" + \
+            "\tDamage: " + str(self.min_damage) + " - " + str(self.max_damage) + healerLine
+
+
 
 if __name__ == "__main__":
     tim = Character("Tim")
@@ -176,3 +184,6 @@ if __name__ == "__main__":
     tim.addXP(1000000)
     print('Tims XP = ', tim.getXP())
     print('Tim is now level: ', tim.getLevel())
+
+    print("\n")
+    print(tim.toString())
