@@ -8,6 +8,7 @@ class DPS(Character):
         Character.setMaxHP(self, 15)
         Character.setMaxDamage(self, 10)
         Character.setMinDamage(self, 5)
+        Character.setRole(self, "DPS")
 
     def levelUp(self):
         minDamage = Character.getMinDamage(self)

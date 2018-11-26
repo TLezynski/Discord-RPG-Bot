@@ -17,6 +17,8 @@ class Character:
         self.min_heal = 0
         self.max_heal = 0
 
+        self.role = ""
+
 
     def getName(self):
         # Getter for the name
@@ -134,14 +136,20 @@ class Character:
         # Sets the min heal
         self.min_damage = n
 
+    def setRole(self, role):
+        # Sets the role
+        self.role = role
+
     def healAlly(self):
         # Randomize between maximum and minimum damage and return that value
         return random.randint(self.min_heal, self.max_heal)
 
-
     def rest(self):
         # Rest and regain all hitpoints
         self.curr_hp = self.max_hp
+
+    def toString(self):
+        return self.name + " : " + self.role
 
 if __name__ == "__main__":
     tim = Character("Tim")

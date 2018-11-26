@@ -8,6 +8,7 @@ class Tank(Character):
         Character.setMaxHP(self, 30)
         Character.setMaxDamage(self, 4)
         Character.setMinDamage(self, 1)
+        Character.setRole(self, "Tank")
 
     def levelUp(self):
         minDamage = Character.getMinDamage(self)

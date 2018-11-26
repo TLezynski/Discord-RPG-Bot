@@ -10,6 +10,7 @@ class Healer(Character):
         Character.setMinDamage(self, 1)
         Character.setMaxHeal(self, 10)
         Character.setMinHeal(self, 5)
+        Character.setRole(self, "Healer")
 
     def levelUp(self):
         minDamage = Character.getMinDamage(self)
