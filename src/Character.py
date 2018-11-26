@@ -48,6 +48,10 @@ class Character:
         # Setter for Max HP
         self.max_hp = n
 
+    def setCurrHP(self, n):
+        # Sets the current HP to the value of N
+        self.curr_hp = n
+
     def goingToLevelUp(self, n):
         # Function that returns true or false if you're going to level up
         # based on amount of xp you are gaining
@@ -119,7 +123,6 @@ class Character:
         # Randomize between maximum and minimum damage and return that value
         return random.randint(self.min_damage, self.max_damage)
 
-
     def getMaxHeal(self):
         # Gets the max heal
         return self.max_damage
@@ -151,11 +154,11 @@ class Character:
     def toString(self):
         healerLine = ""
         if(self.role.lower() == "healer"):
-            healerLine = "\tHealing: " + str(self.min_heal) + " - " + str(self.max_heal) + "\n"
+            healerLine = "Healing: " + str(self.min_heal) + " - " + str(self.max_heal) + "\n"
 
         return self.name + ", Level " + str(self.level) + " " + self.role + "\n" + \
-            "\tHitpoints " + " : " + str(self.curr_hp) + " / " + str(self.max_hp) + "\n" + \
-            "\tDamage: " + str(self.min_damage) + " - " + str(self.max_damage) + healerLine
+            "Hitpoints " + " : " + str(self.curr_hp) + " / " + str(self.max_hp) + "\n" + \
+            "Damage: " + str(self.min_damage) + " - " + str(self.max_damage) + "\n" + healerLine
 
 
 

@@ -6,6 +6,7 @@ class DPS(Character):
     def __init__(self, name):
         Character.__init__(self, name)
         Character.setMaxHP(self, 15)
+        Character.setCurrHP(self, Character.getMaxHP(self))
         Character.setMaxDamage(self, 10)
         Character.setMinDamage(self, 5)
         Character.setRole(self, "DPS")

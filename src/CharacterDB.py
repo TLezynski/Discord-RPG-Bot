@@ -22,3 +22,7 @@ class CharacterDB:
         char.setName(newName)
         self.database.pop(characterName)
         self.database[newName] = char
+
+    def getCharacter(self, characterName):
+        if(characterName in self.database):
+            return self.database[characterName]

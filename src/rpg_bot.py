@@ -15,10 +15,21 @@ characterDB = CharacterDB()
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
 
+def trimContext(context):
+    # Trim the front off of the context and return the remainder of the string
+    string = ""
+    lst = context.message.content.split()
+    lst = lst[1:]
+    for i in lst:
+        string += str(i)
+    return string
+
+
 @bot.command(name="hello", brief="Say hello to the bot!", pass_context=True)
 async def hello(context):
     possible_responses = ["Hello", "Greetings", "Well met", "Hi there", "What's up"]
     await bot.say(random.choice(possible_responses) + " " + context.message.author.mention)
+
 
 @bot.command(name="newCharacter",
              brief="Create a new character",
@@ -27,15 +38,9 @@ async def hello(context):
              aliases = ["newChar", "newcharacter", "newchar"])
 async def newCharacter(context):
     # Break off thee command text from the message, make sure it's valid
-    lst = context.message.content.split()
-    lst = lst[1:]
-    if(len(lst) == 0):
+    string = trimContext(context)
+    if(len(string) == 0):
         await bot.say("`!newCharacter <name>, <Healer, Tank, DPS>`")
-
-    # Turn the list back into a string to split on the correct spot
-    string = ""
-    for i in lst:
-        string += i
 
     nameAndRole = string.split(",")
 
@@ -63,23 +68,38 @@ async def newCharacter(context):
             # Make a DPS character
             char = DPS(name)
             characterDB.addToDB(char)
-            await bot.say("`" + name + " created successfully, Role: DPS`")
+            return await bot.say("`" + name + " created successfully, Role: DPS`")
 
         elif(role == "healer"):
             # Make a healer character
             char = Healer(name)
             characterDB.addToDB(char)
-            await bot.say("`" + name + " created successfully, Role: Healer`")
+            return await bot.say("`" + name + " created successfully, Role: Healer`")
 
         elif (role == "tank"):
             # Make a tank character
             char = Tank(name)
             characterDB.addToDB(char)
-            await bot.say("`" + name + " created successfully, Role: Tank`")
+            return await bot.say("`" + name + " created successfully, Role: Tank`")
 
         else:
-            await bot.say("`" + role + " is not an acceptable role. Please choose DPS, Healer, or Tank.`")
+            return await bot.say("`" + role + " is not an acceptable role. Please choose DPS, Healer, or Tank.`")
 
+
+@bot.command(name="stats",
+             brief="Get stats of a character",
+             pass_context=True,
+             description="Display the stats of a character when given the name of the character",
+             aliases = ["statistics"])
+async def stats(context):
+    name = trimContext(context)
+    if(len(name) == 0):
+        return await bot.say("`No name was entered`")
+
+    if(not characterDB.isInDB(name)):
+        return await bot.say("`Character '" + name + "' was not found in the database.`")
+
+    return await bot.say(characterDB.getCharacter(name).toString())
 
 @bot.event
 async def on_ready():
