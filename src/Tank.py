@@ -6,6 +6,7 @@ class Tank(Character):
     def __init__(self, name):
         Character.__init__(self, name)
         Character.setMaxHP(self, 30)
+        Character.heal(self, self.getMaxHP())
         Character.setMaxDamage(self, 4)
         Character.setMinDamage(self, 1)
         Character.setRole(self, "Tank")

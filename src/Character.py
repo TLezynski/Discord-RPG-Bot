@@ -133,11 +133,11 @@ class Character:
 
     def setMaxHeal(self, n):
         # Sets the max heal
-        self.max_damage = n
+        self.max_heal = n
 
     def setMinHeal(self, n):
         # Sets the min heal
-        self.min_damage = n
+        self.min_heal = n
 
     def setRole(self, role):
         # Sets the role
@@ -157,7 +157,7 @@ class Character:
             healerLine = "Healing: " + str(self.min_heal) + " - " + str(self.max_heal) + "\n"
 
         return self.name + ", Level " + str(self.level) + " " + self.role + "\n" + \
-            "Hitpoints " + " : " + str(self.curr_hp) + " / " + str(self.max_hp) + "\n" + \
+            "Hitpoints: " + str(self.curr_hp) + " / " + str(self.max_hp) + "\n" + \
             "Damage: " + str(self.min_damage) + " - " + str(self.max_damage) + "\n" + healerLine
 
 

@@ -6,6 +6,7 @@ class Healer(Character):
     def __init__(self, name):
         Character.__init__(self, name)
         Character.setMaxHP(self, 10)
+        Character.heal(self, self.getMaxHP())
         Character.setMaxDamage(self, 4)
         Character.setMinDamage(self, 1)
         Character.setMaxHeal(self, 10)
